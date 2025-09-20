@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcello Widiyarto Kusumo - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base Theme & Colors --- */
+        :root {
+            --page-bg: #1a1b26;
+            --terminal-bg: #24283b;
+            --primary: #c0caf5;
+            --accent-1: #7aa2f7;
+            --accent-2: #7dcfff;
+            --accent-3: #9ece6a;
+            --accent-4: #e0af68;
+            --border-color: #414868;
+            --prompt-segment-1: #565f89;
+            --prompt-segment-2: #414868;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--page-bg);
+            color: var(--primary);
+        }
+
+        /* --- Terminal Specific Styles --- */
+        .terminal, .terminal-input, .terminal-output {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .terminal-history::-webkit-scrollbar { width: 8px; }
+        .terminal-history::-webkit-scrollbar-track { background: var(--terminal-bg); }
+        .terminal-history::-webkit-scrollbar-thumb {
+            background-color: var(--prompt-segment-1);
+            border-radius: 20px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: var(--primary);
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+            position: relative;
+            top: 2px;
+        }
+
+        @keyframes blink {
+            50% { background-color: transparent; }
+        }
+        
+        .prompt-segment {
+            padding: 0.25rem 1rem;
+            margin-right: -1px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .prompt-segment:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: 0;
+            bottom: 0;
+            border-style: solid;
+            border-width: 14px 0 14px 14px;
+            z-index: 1;
+        }
+        
+        .prompt-segment.bg-segment-1::after { border-color: transparent transparent transparent var(--prompt-segment-1); }
+        .prompt-segment.bg-segment-2::after { border-color: transparent transparent transparent var(--prompt-segment-2); }
+        .prompt-segment.bg-accent-2::after { border-color: transparent transparent transparent var(--accent-2); }
+
+        /* --- Page Sections & Animations --- */
+        .section-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .section-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .horizontal-scroll::-webkit-scrollbar { height: 8px; }
+        .horizontal-scroll::-webkit-scrollbar-track { background: var(--terminal-bg); }
+        .horizontal-scroll::-webkit-scrollbar-thumb {
+            background-color: var(--prompt-segment-1);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="w-full">
+
+    <!-- Header & Navigation -->
+    <header class="bg-opacity-80 backdrop-blur-md sticky top-0 z-50 border-b" style="background-color: rgba(26, 27, 38, 0.8); border-color: var(--border-color);">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="font-mono text-lg font-bold">artisthbtl.sh</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#terminal-section" class="hover:text-white transition-colors duration-300">Terminal</a>
+                <a href="#projects" class="hover:text-white transition-colors duration-300">Projects</a>
+                <a href="#writeups" class="hover:text-white transition-colors duration-300">Writeups</a>
+                <a href="#certifications" class="hover:text-white transition-colors duration-300">Certifications</a>
+                <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
+            </div>
+             <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+             <a href="#terminal-section" class="block hover:text-white transition-colors duration-300">Terminal</a>
+             <a href="#projects" class="block hover:text-white transition-colors duration-300">Projects</a>
+             <a href="#writeups" class="block hover:text-white transition-colors duration-300">Writeups</a>
+             <a href="#certifications" class="block hover:text-white transition-colors duration-300">Certifications</a>
+             <a href="#contact" class="block hover:text-white transition-colors duration-300">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Name & Terminal Section -->
+        <section id="terminal-section" class="text-center mb-24 scroll-mt-20">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Marcello Widiyarto Kusumo</h1>
+            <p class="text-lg md:text-xl mb-8" style="color: var(--accent-1);">Cyber Security Student & Developer</p>
+            
+            <div id="terminal" class="terminal w-full max-w-4xl h-[60vh] max-h-[600px] shadow-2xl rounded-lg overflow-hidden flex flex-col mx-auto text-left" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                <header class="flex items-center justify-between p-1" style="background-color: var(--border-color);">
+                    <div class="flex items-center">
+                        <div class="prompt-segment text-black" style="background-color: var(--prompt-segment-1);">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code-slash" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
+                        </div>
+                         <div class="prompt-segment bg-segment-1 text-white">0 ❯ zsh -</div>
+                         <div class="prompt-segment bg-segment-2 text-white">1 ❯ my-portfolio *</div>
+                    </div>
+                    <div class="flex items-center">
+                         <div class="prompt-segment bg-segment-2 text-white"><span id="time"></span></div>
+                         <div class="prompt-segment text-black pl-6" style="background-color: var(--accent-2);">artisthbtl</div>
+                    </div>
+                </header>
+                <div id="terminal-history" class="terminal-history flex-grow p-4 overflow-y-auto text-sm leading-relaxed"></div>
+                <div class="flex items-center px-4 pb-4">
+                    <span class="text-lg" style="color: var(--accent-3);">❯</span>
+                    <input type="text" id="terminal-input" class="terminal-input flex-grow bg-transparent border-none outline-none ml-2 text-sm" autofocus>
+                    <div id="cursor" class="cursor"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Projects Section -->
+        <section id="projects" class="mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold mb-8 text-center">My Projects</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="section-card rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                    <img src="./sh4.png" alt="Scary Hour 4 Project" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Scary Hour 4</h3>
+                        <p class="text-sm mb-4">A browser-based hacking lab, inspired by Hack The Box, with an integrated web terminal and interactive guides to simplify the setup process for newcomers. I developed the entire platform and documentation.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <a href="https://www.notion.so/Project-Portofolio-21510e71f1f98090b1a2fcb28b9eb54b?source=copy_link" target="_blank" class="py-1 px-3 rounded-full transition-colors duration-300 bg-[var(--border-color)] hover:bg-[var(--prompt-segment-1)]">Portfolio & Demo</a>
+                            <a href="https://docs.google.com/document/d/10bgFrB8szX-ZEiW5Un_ObgPk32d9k6yD94idSodEK_g/edit?usp=drivesdk" target="_blank" class="py-1 px-3 rounded-full transition-colors duration-300 bg-[var(--border-color)] hover:bg-[var(--prompt-segment-1)]">Report</a>
+                            <a href="https://github.com/artisthbtl/scaryhour4" target="_blank" class="py-1 px-3 rounded-full transition-colors duration-300 bg-[var(--border-color)] hover:bg-[var(--prompt-segment-1)]">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="section-card rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                    <img src="./coffee.png" alt="Mobile App Pentesting Project" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Penetration Testing a Mobile Application</h3>
+                        <p class="text-sm mb-4">Conducted a comprehensive penetration test on "Coffee Portal," a fictional mobile application for a university project. I identified vulnerabilities and documented all findings in a detailed final report.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <a href="https://docs.google.com/document/d/1qNaeDXcMZ6Q-qWax56ZLrVPFFc4u9GL-b-eD0F42lVA/edit?usp=drivesdk" target="_blank" class="py-1 px-3 rounded-full transition-colors duration-300 bg-[var(--border-color)] hover:bg-[var(--prompt-segment-1)]">Project Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Writeups Section -->
+        <section id="writeups" class="mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold mb-8 text-center">My Writeups</h2>
+            <div class="horizontal-scroll flex overflow-x-auto gap-8 p-4">
+                 <!-- Writeup 1 -->
+                <div class="section-card flex-shrink-0 w-80 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                    <img src="./msf6.png" alt="Hack The Box Writeup 1" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Basic Pentesting 2</h3>
+                        <p class="text-sm mb-4">A detailed writeup for a Vulnhub easy box.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <a href="https://docs.google.com/document/d/1wYKiqOXxgtAoFdZeTXQrk5Lw0soibJae9jSFhnL6Bus/edit?usp=drivesdk" target="_blank" class="py-1 px-3 rounded-full transition-colors duration-300 bg-[var(--border-color)] hover:bg-[var(--prompt-segment-1)]">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Writeup 2 -->
+                <div class="section-card flex-shrink-0 w-80 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                    <img src="./lupinone.png" alt="Hack The Box Writeup 2" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Empire: LupinOne</h3>
+                        <p class="text-sm mb-4">A detailed writeup for a Vulnhub medium box.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <a href="https://docs.google.com/document/d/1rfWMxnMgC6VuYocIVOhCnYWAVB5l3Tjnka9_Yz0DFAI/edit?usp=drivesdk" target="_blank" class="py-1 px-3 rounded-full transition-colors duration-300 bg-[var(--border-color)] hover:bg-[var(--prompt-segment-1)]">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Writeup 3 -->
+                <div class="section-card flex-shrink-0 w-80 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                    <img src="./alert.jpg" alt="Hack The Box Writeup 3" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">HTB: Alert</h3>
+                        <p class="text-sm mb-4">A detailed writeup for a Hack The Box challenge.</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <a href="https://docs.google.com/document/d/1e8h9rOU0F61vGskxMlB3N3cFAeaGyEXzcnlpVNF1y7M/edit?usp=drivesdk" target="_blank" class="py-1 px-3 rounded-full transition-colors duration-300 bg-[var(--border-color)] hover:bg-[var(--prompt-segment-1)]">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Certifications Section -->
+        <section id="certifications" class="mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold mb-8 text-center">Certifications</h2>
+            <div class="flex justify-center">
+                 <div class="section-card w-full max-w-md rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                    <img src="./mcrta.png" alt="MCRTA Certification" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Multi-Cloud Red Teaming Analyst</h3>
+                        <p class="text-sm mb-4">Issued by Cyberwarfare Labs on 9/20/2025.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Contact Footer -->
+    <footer id="contact" class="border-t py-8 scroll-mt-20" style="background-color: var(--terminal-bg); border-color: var(--border-color);">
+        <div class="container mx-auto px-6 text-center">
+             <h2 class="text-2xl font-bold mb-6">Contact Me</h2>
+             <div class="flex justify-center items-center flex-wrap gap-x-6 gap-y-4 text-sm">
+                <a href="mailto:eyokusumo@gmail.com" class="flex items-center space-x-2 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>eyokusumo@gmail.com</span>
+                </a>
+                <a href="https://github.com/artisthbtl" target="_blank" class="flex items-center space-x-2 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <span>artisthbtl</span>
+                </a>
+                <a href="https://www.linkedin.com/in/marcello-widiyarto-kusumo-aa79062ab/" target="_blank" class="flex items-center space-x-2 hover:text-white transition-colors">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <span>Marcello Widiyarto Kusumo</span>
+                </a>
+                 <div class="flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span>+62 812 9683 2539</span>
+                </div>
+             </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Mobile Menu Toggle ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Terminal Logic ---
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalHistory = document.getElementById('terminal-history');
+        const terminal = document.getElementById('terminal');
+        const cursor = document.getElementById('cursor');
+        const timeEl = document.getElementById('time');
+
+        const commands = {
+            'help': `
+                <div class='mb-2'>Available commands:</div>
+                <div class='space-y-1'>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">whoami</div><div>- About me</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">skills</div><div>- My technical skills</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">licenses</div><div>- My certifications</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">education</div><div>- My education history</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">experience</div><div>- My work experience</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">ctf</div><div>- CTF contests attended</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">interests</div><div>- My personal interests</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">languages</div><div>- Language proficiency</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">contact</div><div>- How to reach me</div></div>
+                    <div class="flex"><div class="w-28 shrink-0 font-bold" style="color: var(--accent-1);">clear</div><div>- Clear the terminal</div></div>
+                </div>`,
+            'whoami': `<p>Hi, My Name is Marcello Widiyarto Kusumo (nicknamed artisthbtl).</p><p class='mt-2'>I’m an Undergraduate Cyber Security student at BINUS University who’s passionate to learn and grow in the security field, especially in cloud security and reverse engineering.</p>`,
+            'skills': `<div class='mb-2 font-bold'>Programming Languages:</div><div class='flex flex-wrap gap-2'><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Python</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>C</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>HTML/CSS</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Javascript</span></div><div class='mt-4 mb-2 font-bold'>Technical Skills:</div><div class='flex flex-wrap gap-2'><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Penetration Testing</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Cloud Computing</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Reverse Engineering</span></div><div class='mt-4 mb-2 font-bold'>Frameworks & Libraries:</div><div class='flex flex-wrap gap-2'><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Django</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>React.js</span></div><div class='mt-4 mb-2 font-bold'>Tools:</div><div class='flex flex-wrap gap-2'><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Git</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Docker</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Figma</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Ghidra</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>GDB</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Burpsuite</span><span class='py-1 px-2 rounded' style='background-color: var(--border-color);'>Wireshark</span></div>`,
+            'licenses': `<div class='font-bold'>Multi-Cloud Red Teaming Analyst</div><div>Issued by Cyberwarfare Labs on 9/20/2025</div>`,
+            'education': `<div class='space-y-2'><div><span class='font-semibold' style='color: var(--accent-2);'>BINUS University:</span> Cyber Security (GPA: 3.67)</div><div><span class='font-semibold' style='color: var(--accent-2);'>SMAK IPEKA Puri</span></div><div><span class='font-semibold' style='color: var(--accent-2);'>SMPK IPEKA Puri</span></div><div><span class='font-semibold' style='color: var(--accent-2);'>SDK Sang Timur Ciledug</span></div></div>`,
+            'experience': `<div class="mb-3"><div class="font-bold">Cyber Security Community</div><div class="italic" style="color: var(--accent-2);">Activist - Human Resource Field, 2024-present</div><p class="mt-1">Led activities that created a supportive and fair atmosphere, making sure everyone had a chance to participate and learn together in our cyber security community.</p></div><div><div class="font-bold">Teach for Indonesia</div><div class="italic" style="color: var(--accent-2);">English Tutor, 2024-2025</div><p class="mt-1">Tutored junior high school students in fundamental English, focusing on grammar, vocabulary, and conversational skills.</p></div>`,
+            'ctf': `<p>Attended some CTF contests and qualifications like:</p><ul class='list-disc list-inside mt-2'><li>DownUnder CTF 2025</li><li>PETIR Qualification 2025</li><li>Compfest 17</li></ul>`,
+            'interests': `<p>My interests outside the technical world are:</p><ul class='list-disc list-inside mt-2'><li>Films</li><li>Gym</li><li>Bouldering</li><li>Drake</li></ul>`,
+            'languages': `<ul class='list-disc list-inside'><li>Indonesian (Native-speaker)</li><li>English</li></ul>`,
+            'contact': `<div>You can reach me via the contact section at the bottom of the page or use these links:</div><ul class='list-disc list-inside mt-2 space-y-1'><li>Email: <a href='mailto:eyokusumo@gmail.com' class='underline' style='color: var(--accent-2);'>eyokusumo@gmail.com</a></li><li>LinkedIn: <a href='https://www.linkedin.com/in/marcello-widiyarto-kusumo-aa79062ab/' target='_blank' class='underline' style='color: var(--accent-2);'>linkedin.com/in/marcello-widiyarto-kusumo...</a></li><li>GitHub: <a href='https://github.com/artisthbtl' target='_blank' class='underline' style='color: var(--accent-2);'>github.com/artisthbtl</a></li></ul>`
+        };
+        
+        const helpMessage = `<div>Type <span class='font-bold' style='color: var(--accent-1)'>help</span> for a list of available commands.</div>`;
+
+        function addHistory(text) {
+            terminalHistory.insertAdjacentHTML('beforeend', `<div>${text}</div>`);
+            terminalHistory.scrollTop = terminalHistory.scrollHeight;
+        }
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const command = terminalInput.value.trim().toLowerCase();
+                if (command) {
+                    addHistory(`<div class="flex items-center"><span class="text-lg" style="color: var(--accent-3);">❯</span><div class="ml-2">${command}</div></div>`);
+                }
+                if (command === 'clear') {
+                     terminalHistory.innerHTML = '';
+                     addHistory(helpMessage);
+                } else if (commands[command]) {
+                    addHistory(`<div class="terminal-output mt-1 mb-3">${commands[command]}</div>`);
+                } else if (command !== '') {
+                    addHistory(`<div class="terminal-output mt-1 mb-3" style="color: var(--accent-4);">Command not found: ${command}.</div>`);
+                }
+                terminalInput.value = '';
+                terminalHistory.scrollTop = terminalHistory.scrollHeight;
+            }
+        });
+
+        terminal.addEventListener('click', () => terminalInput.focus());
+        terminalInput.addEventListener('focus', () => cursor.style.display = 'inline-block');
+        terminalInput.addEventListener('blur', () => cursor.style.display = 'none');
+        
+        function updateTime() {
+            timeEl.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        
+        addHistory(`<div class="mb-2">Welcome to my interactive portfolio!</div> ${helpMessage}`);
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // --- Intersection Observer for animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
