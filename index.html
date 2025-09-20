@@ -100,7 +100,6 @@
 </head>
 <body class="w-full">
 
-    <!-- Header & Navigation -->
     <header class="bg-opacity-80 backdrop-blur-md sticky top-0 z-50 border-b" style="background-color: rgba(26, 27, 38, 0.8); border-color: var(--border-color);">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" class="font-mono text-lg font-bold">artisthbtl.sh</a>
@@ -111,14 +110,12 @@
                 <a href="#certifications" class="hover:text-white transition-colors duration-300">Certifications</a>
                 <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
             </div>
-             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden">
+             <button id="mobile-menu-button" class="md:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
         </nav>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
              <a href="#terminal-section" class="block hover:text-white transition-colors duration-300">Terminal</a>
              <a href="#projects" class="block hover:text-white transition-colors duration-300">Projects</a>
@@ -129,7 +126,6 @@
     </header>
 
     <main class="container mx-auto px-6 py-12">
-        <!-- Name & Terminal Section -->
         <section id="terminal-section" class="text-center mb-24 scroll-mt-20">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Marcello Widiyarto Kusumo</h1>
             <p class="text-lg md:text-xl mb-8" style="color: var(--accent-1);">Cyber Security Student & Developer</p>
@@ -138,7 +134,7 @@
                 <header class="flex items-center justify-between p-1" style="background-color: var(--border-color);">
                     <div class="flex items-center">
                         <div class="prompt-segment text-black" style="background-color: var(--prompt-segment-1);">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code-slash" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code-slash" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
                         </div>
                          <div class="prompt-segment bg-segment-1 text-white">0 ❯ zsh -</div>
                          <div class="prompt-segment bg-segment-2 text-white">1 ❯ my-portfolio *</div>
@@ -157,12 +153,10 @@
             </div>
         </section>
 
-        <!-- My Projects Section -->
         <section id="projects" class="mb-24 scroll-mt-20">
             <h2 class="text-3xl font-bold mb-8 text-center">My Projects</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="section-card rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+            <div class="horizontal-scroll flex overflow-x-auto gap-8 p-4 -mx-4">
+                <div class="section-card flex-shrink-0 w-96 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
                     <img src="./sh4.png" alt="Scary Hour 4 Project" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Scary Hour 4</h3>
@@ -174,8 +168,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Project 2 -->
-                <div class="section-card rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                <div class="section-card flex-shrink-0 w-96 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
                     <img src="./coffee.png" alt="Mobile App Pentesting Project" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Penetration Testing a Mobile Application</h3>
@@ -185,8 +178,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Project 3 -->
-                <div class="section-card rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
+                <div class="section-card flex-shrink-0 w-96 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
                     <img src="./superairjet.png" alt="Mobile App Pentesting Project" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Penetration Testing Super Air Jet</h3>
@@ -199,11 +191,9 @@
             </div>
         </section>
 
-        <!-- My Writeups Section -->
         <section id="writeups" class="mb-24 scroll-mt-20">
             <h2 class="text-3xl font-bold mb-8 text-center">My Writeups</h2>
-            <div class="horizontal-scroll flex overflow-x-auto gap-8 p-4">
-                 <!-- Writeup 1 -->
+            <div class="horizontal-scroll flex overflow-x-auto gap-8 p-4 -mx-4">
                 <div class="section-card flex-shrink-0 w-80 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
                     <img src="./msf6.png" alt="Hack The Box Writeup 1" class="w-full h-40 object-cover">
                     <div class="p-6">
@@ -214,7 +204,6 @@
                         </div>
                     </div>
                 </div>
-                 <!-- Writeup 2 -->
                 <div class="section-card flex-shrink-0 w-80 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
                     <img src="./lupinone.png" alt="Hack The Box Writeup 2" class="w-full h-40 object-cover">
                     <div class="p-6">
@@ -225,7 +214,6 @@
                         </div>
                     </div>
                 </div>
-                 <!-- Writeup 3 -->
                 <div class="section-card flex-shrink-0 w-80 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105" style="background-color: var(--terminal-bg); border: 1px solid var(--border-color);">
                     <img src="./alert.jpg" alt="Hack The Box Writeup 3" class="w-full h-40 object-cover">
                     <div class="p-6">
@@ -239,7 +227,6 @@
             </div>
         </section>
 
-        <!-- My Certifications Section -->
         <section id="certifications" class="mb-24 scroll-mt-20">
             <h2 class="text-3xl font-bold mb-8 text-center">Certifications</h2>
             <div class="flex justify-center">
@@ -258,7 +245,6 @@
 
     </main>
     
-    <!-- Contact Footer -->
     <footer id="contact" class="border-t py-8 scroll-mt-20" style="background-color: var(--terminal-bg); border-color: var(--border-color);">
         <div class="container mx-auto px-6 text-center">
              <h2 class="text-2xl font-bold mb-6">Contact Me</h2>
